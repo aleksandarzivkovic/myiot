@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "examples.h": "c",
-        "stdio.h": "c",
-        "qmi8658.h": "c",
-        "power_management_lib.h": "c",
-        "debug.h": "c"
-    }
-}

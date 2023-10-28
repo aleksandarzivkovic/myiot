@@ -43,8 +43,8 @@ add_executable(Power_Management_HAT Power_Management_HAT.c )
 pico_set_program_name(Power_Management_HAT "Power_Management_HAT")
 pico_set_program_version(Power_Management_HAT "0.1")
 
-pico_enable_stdio_uart(Power_Management_HAT 1)
-pico_enable_stdio_usb(Power_Management_HAT 1)
+pico_enable_stdio_uart(Power_Management_HAT 0)
+pico_enable_stdio_usb(Power_Management_HAT 0)
 
 pico_add_extra_outputs(Power_Management_HAT)
 

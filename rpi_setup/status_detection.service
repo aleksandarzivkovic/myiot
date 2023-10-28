@@ -1,0 +1,12 @@
+[Unit]
+Description=RPi Power Management HAT (B) support
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python /home/myiot/python/status_detection.py
+User=myiot
+
+[Install]
+WantedBy=multi-user.target

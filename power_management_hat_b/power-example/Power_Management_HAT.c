@@ -35,15 +35,15 @@
 int main()
 {
   /* Initialize function */
-  //Button_Ctr_Init();
-  Period_Time_Init();
+  Button_Ctr_Init();
+  //Period_Time_Init();
 
   /*Calls loop functions*/
   while (true)
   {
     
-    //Button_Ctr_Loop();
-    Period_Time_Loop();
+    Button_Ctr_Loop();
+    //Period_Time_Loop();
   }
 
   return 0;

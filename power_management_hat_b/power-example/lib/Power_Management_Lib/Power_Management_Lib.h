@@ -46,6 +46,10 @@ typedef struct {
     
 } Power_All_State;
 
+typedef struct {
+  uint32_t rpi_power_mW_x50;
+  uint32_t v_bat_mV_x50;
+} UART_packet_t;
 
 bool Check_Runing_State_By_GPIO(void);
 bool Check_Runing_State_By_CURRENT(uint16_t Shutdown_Current);

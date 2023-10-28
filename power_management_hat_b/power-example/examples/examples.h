@@ -42,6 +42,7 @@
 
 void Button_Ctr_Init(void);
 void Button_Ctr_Loop(void);
+bool GetBatteryLow(void);
 
 void Period_Time_Init(void);
 void Period_Time_Loop(void);

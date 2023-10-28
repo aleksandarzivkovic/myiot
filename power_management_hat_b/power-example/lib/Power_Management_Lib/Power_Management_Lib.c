@@ -316,8 +316,21 @@ bool Power_Ctrl_By_Period_Time(void)
 bool Power_Ctrl_By_Button(void)
 {
     uint32_t Press_Time = 0;
+    static bool _bBatteryLowLast = false;
+    bool _bTriggerPowerOnByBattery = false;
+    bool _bTriggerPowerOffByBattery = false;
 
-    if (DEV_Digital_Read(PWR_KEY_PIN) == 0)
+    // capture edge from battery low to battery ok
+    if(_bBatteryLowLast && !GetBatteryLow()){
+        _bTriggerPowerOnByBattery = true;
+    }
+    // capture edge from battery ok to battery low
+    if (!_bBatteryLowLast && GetBatteryLow()){
+        _bTriggerPowerOffByBattery = true;
+    }
+    _bBatteryLowLast = GetBatteryLow();
+
+    if ((DEV_Digital_Read(PWR_KEY_PIN) == 0) || _bTriggerPowerOnByBattery || _bTriggerPowerOffByBattery)
     {
         DEV_Delay_ms(2);
         cancel_repeating_timer(&timer);
@@ -335,7 +348,7 @@ bool Power_Ctrl_By_Button(void)
                 Debug("Mandatory Shutdown Raspberry Pi. \r\n");
                 Power_State_Crtl(false);
             }
-            else if (Press_Time > Shutdown_Time_Ms)
+            else if ((Press_Time > Shutdown_Time_Ms) || _bTriggerPowerOffByBattery)
             {
                 // Wait Raspberry Pi Shutdown
                 Debug("Wait Raspberry Pi Shutdown. \r\n");

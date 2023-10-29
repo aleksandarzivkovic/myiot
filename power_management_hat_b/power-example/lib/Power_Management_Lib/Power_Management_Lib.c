@@ -37,6 +37,8 @@ uint16_t Wait_Boot_Time_S = 90;
 uint16_t Shutdown_Time_Ms = 2000;
 uint16_t Power_Off_Time_Ms = 8000;
 
+extern bool g_bBatteryLow;
+
 static struct repeating_timer timer;
 /******************************************************************************
     function: Timer_Callback
@@ -321,14 +323,14 @@ bool Power_Ctrl_By_Button(void)
     bool _bTriggerPowerOffByBattery = false;
 
     // capture edge from battery low to battery ok
-    if(_bBatteryLowLast && !GetBatteryLow()){
+    if(_bBatteryLowLast && !g_bBatteryLow){
         _bTriggerPowerOnByBattery = true;
     }
     // capture edge from battery ok to battery low
-    if (!_bBatteryLowLast && GetBatteryLow()){
+    if (!_bBatteryLowLast && g_bBatteryLow){
         _bTriggerPowerOffByBattery = true;
     }
-    _bBatteryLowLast = GetBatteryLow();
+    _bBatteryLowLast = g_bBatteryLow;
 
     if ((DEV_Digital_Read(PWR_KEY_PIN) == 0) || _bTriggerPowerOnByBattery || _bTriggerPowerOffByBattery)
     {
